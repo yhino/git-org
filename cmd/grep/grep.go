@@ -1,8 +1,6 @@
 package grep
 
 import (
-	"bufio"
-	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -91,10 +89,9 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 						m.Lock()
 
 						// format and output
-						r := bytes.NewReader(out)
-						scanner := bufio.NewScanner(r)
-						for scanner.Scan() {
-							fmt.Printf("%s\t%s\n", *repo.FullName, scanner.Text())
+						results := ParseGrepResult(out)
+						for _, result := range results {
+							fmt.Printf("%s\t%s\n", *repo.FullName, result.TSV())
 						}
 
 						m.Unlock()
