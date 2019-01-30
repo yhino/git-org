@@ -13,7 +13,7 @@ func NewDefaultCmd() *cobra.Command {
 
 	cmds := &cobra.Command{
 		Use:   "git-org",
-		Short: "operation to the github orgranization, git-org is git subcommand",
+		Short: "A Git subcommand to do github orgaization",
 		Run: func(cmd *cobra.Command, args []string) {
 			cmd.Help()
 		},

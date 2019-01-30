@@ -17,7 +17,7 @@ import (
 func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 	cmds := &cobra.Command{
 		Use:   "grep",
-		Short: "run grep the specified github organization repository",
+		Short: "Grep the specified github organization repository",
 		PreRun: func(cmd *cobra.Command, args []string) {
 			if err := cmd.MarkFlagRequired("org"); err != nil {
 				cmd.Printf("ERROR: %v\n", err)
