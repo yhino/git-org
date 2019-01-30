@@ -13,10 +13,10 @@ import (
 
 	"github.com/google/go-github/github"
 	"github.com/spf13/cobra"
-	"github.com/yhinoz/git-org/cmd/util"
+	cmdutil "github.com/yhinoz/git-org/cmd/util"
 )
 
-func NewGrepCmd() *cobra.Command {
+func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 	cmds := &cobra.Command{
 		Use:   "grep",
 		Short: "run grep the specified github organization repository",
@@ -27,14 +27,14 @@ func NewGrepCmd() *cobra.Command {
 			}
 		},
 		Run: func(cmd *cobra.Command, args []string) {
-			client, err := util.GetGithubClient("", "")
+			client, err := f.GithubClient()
 			if err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)
 			}
 
 			org, _ := cmd.Root().PersistentFlags().GetString("org")
-			allRepos, err := util.GetAllRepository(client, org)
+			allRepos, err := cmdutil.GetAllRepository(client, org)
 			if err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)

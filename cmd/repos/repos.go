@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/yhinoz/git-org/cmd/util"
+	cmdutil "github.com/yhinoz/git-org/cmd/util"
 )
 
-func NewReposCmd() *cobra.Command {
+func NewReposCmd(f cmdutil.Factory) *cobra.Command {
 	c := &cobra.Command{
 		Use:   "repos",
 		Short: "Show the specified github organization repository",
@@ -19,14 +19,14 @@ func NewReposCmd() *cobra.Command {
 			}
 		},
 		Run: func(cmd *cobra.Command, args []string) {
-			client, err := util.GetGithubClient("", "")
+			client, err := f.GithubClient()
 			if err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)
 			}
 
 			org, _ := cmd.Root().PersistentFlags().GetString("org")
-			allRepos, err := util.GetAllRepository(client, org)
+			allRepos, err := cmdutil.GetAllRepository(client, org)
 			if err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)

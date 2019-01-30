@@ -22,3 +22,13 @@ A Git subcommand to do github orgaization.
 	
 	Use "git-org [command] --help" for more information about a command.
 
+## Options
+
+To access organization's private repositories, generate a GitHub Personal Access Token, make sure you have the following environment variable.
+
+    export GITHUB_ACCESS_TOKEN=your_personal_access_token
+
+or your configuration to your `.env` file in the home directory:
+
+    GITHUB_ACCESS_TOKEN=your_personal_access_token
+

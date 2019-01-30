@@ -34,6 +34,14 @@
   version = "v1.0"
 
 [[projects]]
+  digest = "1:ecd9aa82687cf31d1585d4ac61d0ba180e42e8a6182b85bd785fcca8dfeefc1b"
+  name = "github.com/joho/godotenv"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "23d116af351c84513e1946b527c88823e476be13"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:645cabccbb4fa8aab25a956cbcbdf6a6845ca736b2c64e197ca7cbb9d210b939"
   name = "github.com/spf13/cobra"
   packages = ["."]
@@ -92,6 +100,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/google/go-github/github",
+    "github.com/joho/godotenv",
     "github.com/spf13/cobra",
     "golang.org/x/oauth2",
   ]
