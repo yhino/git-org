@@ -61,6 +61,8 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 						branch, _ := cmd.Flags().GetString("branch")
 						exec.Command("git", "clone", "-b", branch, "--quiet", *repo.SSHURL, tmpDir).Run()
 
+						m.Lock()
+
 						// grep
 						var out []byte
 						if _, err := os.Stat(tmpDir); err != nil {
@@ -85,8 +87,6 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 
 							os.Chdir(currDir)
 						}
-
-						m.Lock()
 
 						// format and output
 						results := ParseGrepResult(out)
