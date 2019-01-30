@@ -27,14 +27,14 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 			}
 		},
 		Run: func(cmd *cobra.Command, args []string) {
-			client, err := f.GithubClient()
+			service, err := f.RepositoryService()
 			if err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)
 			}
 
 			org, _ := cmd.Root().PersistentFlags().GetString("org")
-			allRepos, err := cmdutil.GetAllRepository(client, org)
+			allRepos, err := service.FetchAllByOrg(org)
 			if err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)

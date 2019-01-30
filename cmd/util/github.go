@@ -32,32 +32,3 @@ func GetGithubClient(token, baseURL string) (*github.Client, error) {
 
 	return client, nil
 }
-
-// TODO: to Usecase, Repository
-func GetAllRepository(client *github.Client, org string) ([]*github.Repository, error) {
-	var allRepos []*github.Repository
-
-	ctx := context.Background()
-	option := &github.RepositoryListByOrgOptions{
-		ListOptions: github.ListOptions{
-			PerPage: 100,
-		},
-	}
-
-	for {
-		repos, resp, err := client.Repositories.ListByOrg(ctx, org, option)
-		if err != nil {
-			return nil, err
-		}
-
-		allRepos = append(allRepos, repos...)
-
-		if resp.NextPage == 0 {
-			break
-		}
-
-		option.ListOptions.Page = resp.NextPage
-	}
-
-	return allRepos, nil
-}
