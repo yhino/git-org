@@ -16,7 +16,7 @@ func NewVersionCmd() *cobra.Command {
 		Use:   "version",
 		Short: "Print the version",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Printf("git-org Version: %s (rev: %s)\n", version, revision)
+			fmt.Printf("git-org version: %s (rev: %s)\n", version, revision)
 		},
 	}
 }
