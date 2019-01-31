@@ -16,7 +16,7 @@ install:
 
 script:
   - go test -v ./...
-  - if [ "${LATEST}" = "true" ]; then gox -os="linux darwin windows" -arch="amd64" -output="dist/git-org.{{.OS}}.{{.Arch}}" -ldflags="$LDFLAGS" -verbose ./...; fi
+  - gox -os="linux darwin windows" -arch="amd64" -output="dist/git-org.{{.OS}}.{{.Arch}}" -ldflags="$LDFLAGS" -verbose ./...
 
 deploy:
   provider: releases
