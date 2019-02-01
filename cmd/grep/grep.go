@@ -12,14 +12,23 @@ import (
 	"github.com/google/go-github/github"
 	"github.com/spf13/cobra"
 	cmdutil "github.com/yhinoz/git-org/cmd/util"
+	"gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
+	tmpBaseDir := filepath.Join(os.TempDir(), "git-orgrep")
+
 	cmds := &cobra.Command{
 		Use:   "grep",
 		Short: "Grep the specified github organization repository",
 		PreRun: func(cmd *cobra.Command, args []string) {
 			if err := cmd.MarkFlagRequired("org"); err != nil {
+				cmd.Printf("ERROR: %v\n", err)
+				os.Exit(1)
+			}
+
+			if err := os.RemoveAll(tmpBaseDir); err != nil {
 				cmd.Printf("ERROR: %v\n", err)
 				os.Exit(1)
 			}
@@ -54,24 +63,27 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 							return
 						}
 
-						tmpDir := filepath.Join(os.TempDir(), "git-orgrep", *repo.Name)
+						tmpDir := filepath.Join(tmpBaseDir, *repo.Name)
 						currDir, _ := filepath.Abs(".")
 
-						// clone
-						branch, _ := cmd.Flags().GetString("branch")
-						exec.Command("git", "clone", "-b", branch, "--quiet", *repo.SSHURL, tmpDir).Run()
+						out := func() []byte {
+							// clone
+							branch, _ := cmd.Flags().GetString("branch")
+							if _, err := git.PlainClone(tmpDir, false, &git.CloneOptions{
+								URL:           *repo.SSHURL,
+								ReferenceName: plumbing.NewBranchReferenceName(branch),
+							}); err != nil {
+								return []byte("clone error, " + err.Error())
+							}
 
-						m.Lock()
+							m.Lock()
 
-						// grep
-						var out []byte
-						if _, err := os.Stat(tmpDir); err != nil {
-							out = []byte("git-clone error")
-						} else {
 							os.Chdir(tmpDir)
 
+							// grep
+							var o []byte
 							cmdArgs := append([]string{"grep"}, args...)
-							out, err = exec.Command("git", cmdArgs...).CombinedOutput()
+							o, err = exec.Command("git", cmdArgs...).CombinedOutput()
 							if err != nil {
 								var waitStatus syscall.WaitStatus
 								if exitError, ok := err.(*exec.ExitError); ok {
@@ -79,14 +91,20 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 								}
 								switch waitStatus.ExitStatus() {
 								case 1:
-									out = []byte("notfound")
+									o = []byte("notfound")
 								default:
-									out = []byte(fmt.Sprintf("error: %s, %s", out, err))
+									o = []byte(fmt.Sprintf("error, %s, %s", o, err))
 								}
 							}
 
 							os.Chdir(currDir)
-						}
+
+							m.Unlock()
+
+							return o
+						}()
+
+						m.Lock()
 
 						// format and output
 						results := ParseGrepResult(out)
@@ -103,6 +121,12 @@ func NewGrepCmd(f cmdutil.Factory) *cobra.Command {
 			}
 			close(queue)
 			wg.Wait()
+		},
+		PostRun: func(cmd *cobra.Command, args []string) {
+			if err := os.RemoveAll(tmpBaseDir); err != nil {
+				cmd.Printf("ERROR: %v\n", err)
+				os.Exit(1)
+			}
 		},
 	}
 
