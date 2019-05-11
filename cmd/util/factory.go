@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/google/go-github/github"
-	"github.com/yhinoz/git-org/service"
+	"github.com/yhino/git-org/service"
 )
 
 type Factory interface {

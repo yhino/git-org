@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	cmdutil "github.com/yhinoz/git-org/cmd/util"
+	cmdutil "github.com/yhino/git-org/cmd/util"
 )
 
 func NewReposCmd(f cmdutil.Factory) *cobra.Command {

@@ -11,7 +11,7 @@ import (
 
 	"github.com/google/go-github/github"
 	"github.com/spf13/cobra"
-	cmdutil "github.com/yhinoz/git-org/cmd/util"
+	cmdutil "github.com/yhino/git-org/cmd/util"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 )

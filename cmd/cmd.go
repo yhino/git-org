@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/yhinoz/git-org/cmd/grep"
-	"github.com/yhinoz/git-org/cmd/repos"
-	cmdutil "github.com/yhinoz/git-org/cmd/util"
-	"github.com/yhinoz/git-org/cmd/version"
+	"github.com/yhino/git-org/cmd/grep"
+	"github.com/yhino/git-org/cmd/repos"
+	cmdutil "github.com/yhino/git-org/cmd/util"
+	"github.com/yhino/git-org/cmd/version"
 )
 
 func NewDefaultCmd() *cobra.Command {

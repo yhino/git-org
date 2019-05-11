@@ -1,7 +1,7 @@
 REVISION := $(shell git rev-parse --short HEAD)
 
 SRCS := $(shell find . -type f -name '*.go')
-LDFLAGS := -ldflags="-s -w -X \"github.com/yhinoz/git-org/cmd/version.revision=$(REVISION)\" -extldflags \"-static\""
+LDFLAGS := -ldflags="-s -w -X \"github.com/yhino/git-org/cmd/version.revision=$(REVISION)\" -extldflags \"-static\""
 
 
 all: deps git-org

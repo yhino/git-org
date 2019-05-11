@@ -4,7 +4,7 @@ A Git subcommand to do github organization.
 
 ## Install
 
-    go get -u github.com/yhinoz/git-org
+    go get -u github.com/yhino/git-org
 
 ## Usage
 
