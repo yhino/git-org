@@ -1,3 +1,5 @@
+export GO111MODULE = on
+
 REVISION := $(shell git rev-parse --short HEAD)
 
 SRCS := $(shell find . -type f -name '*.go')
@@ -12,11 +14,7 @@ git-org: $(SRCS)
 .PHONY: deps
 
 deps:
-ifeq ($(shell which dep),)
-	go get -u github.com/golang/dep/cmd/dep
-	hash -r
-endif
-	dep ensure
+	go mod vendor
 
 .PHONY: clean
 
