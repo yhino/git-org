@@ -1,5 +1,7 @@
 # git-org
 
+[![Build Status](https://travis-ci.com/yhino/git-org.svg?branch=master)](https://travis-ci.com/yhino/git-org)
+
 A Git subcommand to do github organization.
 
 ## Install
