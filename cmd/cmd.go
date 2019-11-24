@@ -15,7 +15,7 @@ func NewDefaultCmd() *cobra.Command {
 		Use:   "git-org",
 		Short: "A Git subcommand to do github orgaization",
 		Run: func(cmd *cobra.Command, args []string) {
-			cmd.Help()
+			_ = cmd.Help()
 		},
 	}
 

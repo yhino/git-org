@@ -32,9 +32,7 @@ func (f *factoryImpl) RepositoryService() (service.RepositoryService, error) {
 		return nil, err
 	}
 
-	service := service.NewRepositoryService(
+	return service.NewRepositoryService(
 		githubClient,
-	)
-
-	return service, nil
+	), nil
 }

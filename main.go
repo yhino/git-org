@@ -11,7 +11,7 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		godotenv.Load(os.Getenv("HOME") + "/.env")
+		_ = godotenv.Load(os.Getenv("HOME") + "/.env")
 	}
 
 	defaultCmd := cmd.NewDefaultCmd()
