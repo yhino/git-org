@@ -1,6 +1,7 @@
 # git-org
 
 [![Build Status](https://travis-ci.com/yhino/git-org.svg?branch=master)](https://travis-ci.com/yhino/git-org)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fyhino%2Fgit-org.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fyhino%2Fgit-org?ref=badge_shield)
 
 A Git subcommand to do github organization.
 
@@ -52,3 +53,7 @@ or your configuration to your `.env` file in the home directory:
 
     GITHUB_ACCESS_TOKEN=your_personal_access_token
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fyhino%2Fgit-org.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fyhino%2Fgit-org?ref=badge_large)
