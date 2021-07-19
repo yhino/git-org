@@ -41,7 +41,10 @@ Example:
     * ignore-case
     * line-number
 
-    git org grep -o hogehoge -- -i -n foobar
+```
+git org grep -o hogehoge -- -i -n foobar
+```
+
 
 ## Options
 
